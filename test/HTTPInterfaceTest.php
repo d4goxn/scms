@@ -47,5 +47,7 @@ class HTTPInterfaceTest extends PHPUnit_Framework_TestCase {
 		global $siteInfo;
 
 		HTTPPostTestEntity($this);
+
+		// TODO: Verify that the entity is in the database.
 	}
 }
