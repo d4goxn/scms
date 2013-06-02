@@ -1,15 +1,12 @@
 # How to Install
 
-For local development and testing in a LAMP environment.
+Setup instructions for local development and testing in a LAMP environment. Requires `mod_ssl` and `php_curl` for Apache.
 
 ## Directory Structure
 
-Assuming you have already done `cd [path to site]`. `[path to site]` must not be below `/home` or there will be permissions problems.
+These instructions assume that you have already done `cd [path to site]`. `[path to site]` must not be below `/home` or there will be permissions problems.
 
-`config/`: Configuration files, including database credentials.
-`www/`: Contains all web accessible content and PHP files.
-`log/`: Log files.
-`upload/`: User uploads.
+The `./vendor` directory has been omitted from source control. To retrieve the submodules needed to run the site, run `./composer.phar install`.
 
 ## File Permissions
 
@@ -33,13 +30,18 @@ mysql> create database [db name]
 mysql> grant *.* on [db name] for [db user] using password [db password]
 ```
 
-Import the `[db name].sql` file:
+Import the `scms.sql` file:
 
-`mysql> source [absolute path to site]/[db name].sql`
+```
+using [db name]
+mysql> source [absolute path to site]/scms.sql
+```
 
 Create a `config/settings.cfg` file from `config/settings.cfg.template`, and update the database connection info. The database name, user name and password must match the name given and permissions granted for the database.
 
 This file is ignored by Git, so you don't have to worry about having passwords in the repository of your open-source project. This means that you will have to either backup the databse connection info seperately, or be willing to change the database password if you restore from backup.
+
+Export a copy of your database into a new SQL file. If the database will contain sensitive information, you might want to add an entry for it in `.gitignore` to keep its data out of the version control history.
 
 ## DNS Setup
 
