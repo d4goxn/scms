@@ -5,11 +5,12 @@
  */
 
 if(strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false
-	|| strpos($_SERVER['HTTP_ACCEPT'], '*/*') !== false) {
+|| strpos($_SERVER['HTTP_ACCEPT'], '*/*') !== false) {
 
 	$data = json_encode($_POST);
+
 	header('Content-Type: application/json');
-	header('Content-MD5: ' . base64_encode(md5($data, true)));
+	header('Content-MD5: ' . md5($_POST));
 
 ?>{
 	"message": "POST accepted. This is a placeholder."
