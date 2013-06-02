@@ -24,7 +24,7 @@ Returns a basic HTTP header describing the entity.
 
 ### GET /
 
-Retrieves the main view.
+Retrieves the main view, which loads the view controller code. What happens next depends on the view itself: it could show an ultra minimalist page with a few links to other parts of the site, or it could start pulling in sorted, filtered content like a news site, or anything in between.
 
 ### GET /<entity-name>
 
@@ -40,15 +40,17 @@ Returns a JSON array of a page of search results. The page is specified by its l
 
 #### Parameters
 
- - `page-length`: results per page
- - `page`: page number
- - `contains-tags`: tag list
- - `excludes-tags`: tag list
- - `title-contains-text`: search string
- - `title-contains-text`: search string
- - `body-excludes-text`: search string
- - `body-excludes-text`: search string
- - `created-before`: unix timestamp
- - `created-after`: unix timestamp
- - `last-modified-before`: unix timestamp
- - `last-modified-after`: unix timestamp
+ - `page-length`: Results per page.
+ - `page`: Page number.
+ - `contains-tags`: Tag list.
+ - `excludes-tags`: Tag list.
+ - `title-contains-text`: Search string.
+ - `title-contains-text`: Search string.
+ - `body-excludes-text`: Search string.
+ - `body-excludes-text`: Search string.
+ - `created-before`: Unix timestamp.
+ - `created-after`: Unix timestamp.
+ - `last-modified-before`: Unix timestamp.
+ - `last-modified-after`: Unix timestamp.
+ - `order-fields`: List of fields used for sorting.
+ - `order-directions`: List of `ASC` / `DESC` fields corresponding to `order-fields`.
