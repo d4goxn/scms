@@ -18,17 +18,17 @@ Tests are written before features are implemented, then refined as need. Testing
 
 The server exposes its functionality to the client through a RESTful HTTP interface. Client views are interchangeable, as far as the server is concerned. For exploring the HTTP interface interactively, I recommend using the [Postman](http://www.getpostman.com/) addon for Chromium / Google Chrome.
 
+### GET /
+
+Retrieves the main view, which loads the view controller code. What happens next depends on the view itself: it could show an ultra minimalist page with a few links to other parts of the site, or it could start pulling in sorted, filtered content like a news site, or anything in between.
+
 ### HEAD /<entity-name>
 
 Returns a basic HTTP header describing the entity.
 
-#### Response Parameters
+#### Request Parameters
 
- - `Content-MD5` can be used to determine if client side entity has changed on the server.
-
-### GET /
-
-Retrieves the main view, which loads the view controller code. What happens next depends on the view itself: it could show an ultra minimalist page with a few links to other parts of the site, or it could start pulling in sorted, filtered content like a news site, or anything in between.
+ - `Content-MD5`: Specify the client's version of the entity. If it matches the MD5 has of the entity on the server side, a `304 not modified` response will be sent.
 
 ### GET /<entity-name>
 
@@ -36,7 +36,7 @@ Retrieves a single entity by its unique name.
 
 #### Request Parameters
 
- - `Content-Type` must be `text/json`, which the client will be expected to render.
+ - `Accept` must be `text/json`, which the client will be expected to render.
 
 ### HEAD /search?<parameters>
 
