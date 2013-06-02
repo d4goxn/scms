@@ -1,20 +1,22 @@
 <?php
+
 /**
- * Test tests: Make sure that PHPUnit runs.
+ * HTTP interface tests. Requires mod_curl.
  *
  * @author  Dan Ross <ross9885@gmail.com>
  * @license GPLv3 gnu.org/licenses/gpl.html
  */
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 require_once __DIR__ . '/../config/settings.php';
 require_once __DIR__ . '/../lib/parseHTTPHeaders.php';
+require_once __DIR__ . '/HTTPPostTestEntity.php';
 
 class HTTPInterfaceTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * Send a HEAD request to '/' and check the header fields.
-	 *
-	 * @return NULL
 	 */
 
 	public function testHEADIndex() {
@@ -35,5 +37,15 @@ class HTTPInterfaceTest extends PHPUnit_Framework_TestCase {
 		$headers = parseHTTPHeaders($headerString);
 
 		$this->assertEquals('text/html', $headers['Content-Type']);
+	}
+
+	/**
+	 * POST an entity and verify it's existence in the database.
+	 */
+
+	public function testGETIndex() {
+		global $siteInfo;
+
+		HTTPPostTestEntity($this);
 	}
 }
