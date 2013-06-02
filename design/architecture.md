@@ -22,13 +22,21 @@ The server exposes its functionality to the client through a RESTful HTTP interf
 
 Returns a basic HTTP header describing the entity.
 
+#### Response Parameters
+
+ - `Content-MD5` can be used to determine if client side entity has changed on the server.
+
 ### GET /
 
 Retrieves the main view, which loads the view controller code. What happens next depends on the view itself: it could show an ultra minimalist page with a few links to other parts of the site, or it could start pulling in sorted, filtered content like a news site, or anything in between.
 
 ### GET /<entity-name>
 
-Retrieves a single entity by its unique name. `Content-Type` will be `text/json`, which the client will be expected to render.
+Retrieves a single entity by its unique name.
+
+#### Request Parameters
+
+ - `Content-Type` must be `text/json`, which the client will be expected to render.
 
 ### HEAD /search?<parameters>
 
