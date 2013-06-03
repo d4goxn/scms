@@ -74,11 +74,15 @@ Add a virtual host configuration to `/etc/apache2/sites-available/[site name]`. 
 		AllowOverride FileInfo
 		Order allow,deny
 		allow from all
-		FallbackResource /index.php
+
+		RewriteEngine on
+		RewriteCond %{REQUEST_FILENAME} !-f
+		RewriteCond %{REQUEST_FILENAME} !-d
+		RewriteRule ^ index.php [L]
 	</Directory>
 
 	<Directory [path to site]/www/resources/>
-		FallbackResource disabled
+		RewriteEngine off
 	</Directory>
 
 	ErrorLog [path to site]/log/error.log
@@ -105,11 +109,15 @@ Add a virtual host configuration to `/etc/apache2/sites-available/[site name]`. 
 		AllowOverride FileInfo
 		Order allow,deny
 		allow from all
-		FallbackResource /index.php
+
+		RewriteEngine on
+		RewriteCond %{REQUEST_FILENAME} !-f
+		RewriteCond %{REQUEST_FILENAME} !-d
+		RewriteRule ^ index.php [L]
 	</Directory>
 
 	<Directory [path to site]/www/resources/>
-		FallbackResource disabled
+		RewriteEngine off
 	</Directory>
 
 	ErrorLog [path to site]/log/error.log

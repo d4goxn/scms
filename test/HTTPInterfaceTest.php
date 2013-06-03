@@ -9,7 +9,6 @@
 
 require_once __DIR__ . '/../config/settings.php';
 require_once __DIR__ . '/../lib/parseHTTPHeaders.php';
-require_once __DIR__ . '/HTTPPostTestEntity.php';
 
 require_once __DIR__ . '/../vendor/autoload.php';
 

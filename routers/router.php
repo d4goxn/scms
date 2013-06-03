@@ -13,21 +13,32 @@
 function routeRequest() {
 	$method = $_SERVER['REQUEST_METHOD'];
 
+	// Route a HEAD request just like a GET request. Apache will stop execution and send a response as soon as we try to create some body content
+	if($method == "HEAD")
+		$method == "GET";
+
 	$uri = $_SERVER['REQUEST_URI'];
 
-	$handlerPath = join(DIRECTORY_SEPARATOR, array(
+	$route = join(DIRECTORY_SEPARATOR, array(
 		__DIR__, strtolower($method), substr($uri, 1)
 	));
 
-	$defaultHandlerPath = join(DIRECTORY_SEPARATOR, array(
+	$indexRoute = join(DIRECTORY_SEPARATOR, array(
+		__DIR__, strtolower($method), 'index.php'
+	));
+
+	$defaultRoute = join(DIRECTORY_SEPARATOR, array(
 		__DIR__, strtolower($method), 'router.php'
 	));
 
-	if(file_exists($handlerPath))
-		require $handlerPath;
+	if(file_exists($route))
+		require $route;
 
-	elseif(file_exists($defaultHandlerPath))
-		require $defaultHandlerPath;
+	elseif($uri == '/' && file_exists($indexRoute))
+		require $indexRoute;
+
+	elseif(file_exists($defaultRoute))
+		require $defaultRoute;
 
 	else
 		http_response_code(405); // Method Not Allowed.
