@@ -7,11 +7,11 @@
  * @license GPLv3 gnu.org/licenses/gpl.html
  */
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
 require_once __DIR__ . '/../config/settings.php';
 require_once __DIR__ . '/../lib/parseHTTPHeaders.php';
 require_once __DIR__ . '/HTTPPostTestEntity.php';
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 class HTTPInterfaceTest extends PHPUnit_Framework_TestCase {
 
@@ -46,8 +46,23 @@ class HTTPInterfaceTest extends PHPUnit_Framework_TestCase {
 	public function testPostEntity() {
 		global $siteInfo;
 
-		HTTPPostTestEntity($this);
+		$entity = Yaml::parse(file_get_contents(__DIR__ . '/data/testEntity.yml'));
 
-		// TODO: Verify that the entity is in the database.
+		// POST /<entity-name>
+		$url = 'http://' . $siteInfo['fqdn'] . '/' . $entity['name'];
+		$request = curl_init($url);
+		curl_setopt_array($request, array(
+			CURLOPT_RETURNTRANSFER => 1,
+			CURLOPT_POST => 1,
+			CURLOPT_POSTFIELDS => http_build_query($entity)
+		));
+		$response = curl_exec($request);
+
+		$this->assertEquals(200, curl_getinfo($request, CURLINFO_HTTP_CODE));
+
+		curl_close($request);
+
+		$localEntity = getEntity($entity['name']);
+		$this->assertEquals($localEntity[$key], $entity[$key]);
 	}
 }
