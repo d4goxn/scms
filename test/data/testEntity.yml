@@ -1,8 +1,4 @@
 name: __test-entity__
 title: A Test Entity
-content-type: text/plain
-preview: This is a test entity.
-body: This is a test entity. It should only be POSTed during testing and it should be DELETEd at the end of the test.
-created: 1370129816
-modified: 1370129816
-owner: __test-user__
+type: text
+body: This is a test.
